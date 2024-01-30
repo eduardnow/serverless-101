@@ -11,3 +11,6 @@ functions:
       - http:
           path: hello
           method: GET
+
+plugins:
+  - serverless-offline

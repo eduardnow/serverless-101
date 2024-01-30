@@ -70,3 +70,13 @@ functions:
       - http:
           path: users/{id}
           method: PUT
+  delete-users:
+    handler: deleteUser/handler.delete_user
+    runtime: python3.8
+    package:
+      patterns:
+        - "deleteUser/handler.py"
+    events:
+      - http:
+          path: users/{id}
+          method: DELETE

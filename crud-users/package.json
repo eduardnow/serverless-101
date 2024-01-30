@@ -1,0 +1,21 @@
+{
+  "name": "crud-users",
+  "version": "1.0.0",
+  "description": "",
+  "main": "getUser/handler.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "offline": "sls offline start",
+    "deploy": "sls deploy"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "aws-sdk": "^2.1546.0",
+    "serverless": "^3.21.0",
+    "serverless-offline": "^13.3.3"
+  },
+  "dependencies": {
+    "serverless-dynamodb": "^0.2.47"
+  }
+}

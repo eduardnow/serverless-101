@@ -64,3 +64,9 @@ functions:
       - http:
           path: users
           method: POST
+  update-users:
+    handler: updateUser/handler.updateUser
+    events:
+      - http:
+          path: users/{id}
+          method: PUT

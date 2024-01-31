@@ -380,6 +380,4 @@ cython_debug/
 
 
 .idea/
-!/crud-users/.dynamodb/
-
-crud-users/.dynamodb/
+.dynamodb/

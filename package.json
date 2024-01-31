@@ -5,8 +5,8 @@
   "main": "getUser/handler.js",
   "scripts": {
     "test": "echo \"Error: no test specified\"",
-    "offline": "sls offline start",
-    "deploy": "sls deploy"
+    "offline": "crud-users/node_modules/.bin/sls offline start",
+    "deploy": "crud-users/node_modules/.bin/sls deploy"
   },
   "author": "",
   "license": "ISC",

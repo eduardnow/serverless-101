@@ -1,0 +1,82 @@
+service: crud-users
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action: "dynamodb:*"
+          Resource:
+            - arn:aws:dynamodb:us-east-1:945921806002:table/usersTable
+
+plugins:
+  - serverless-offline
+  - serverless-dynamodb
+
+package:
+  individually: true
+  patterns:
+    - "!.dynamodb"
+    - "!node_modules"
+
+custom:
+  dynamodb:
+    # If you only want to use DynamoDB Local in some stages, declare them here
+    stages:
+      - dev
+    start:
+      port: 8000
+      inMemory: true
+      migrate: true
+  custom:
+    serverless-dynamodb:
+      port: 8000
+      docker: false
+
+resources:
+  Resources:
+    usersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: usersTable
+        AttributeDefinitions:
+          - AttributeName: pk
+            AttributeType: S
+        KeySchema:
+          - AttributeName: pk
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+
+functions:
+  get-users:
+    handler: getUser/handler.getUser
+    events:
+      - http:
+          path: users/{id}
+          method: GET
+  create-users:
+    handler: createUser/handler.createUser
+    events:
+      - http:
+          path: users
+          method: POST
+  update-users:
+    handler: updateUser/handler.updateUser
+    events:
+      - http:
+          path: users/{id}
+          method: PUT
+  delete-users:
+    handler: deleteUser/handler.delete_user
+    runtime: python3.8
+    package:
+      patterns:
+        - "deleteUser/handler.py"
+    events:
+      - http:
+          path: users/{id}
+          method: DELETE

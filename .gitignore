@@ -381,3 +381,4 @@ cython_debug/
 
 .idea/
 .dynamodb/
+!/deleteUser/.idea/

@@ -3,15 +3,17 @@ import json
 import boto3
 from botocore.exceptions import BotoCoreError, ClientError
 
+
 def get_dynamodb_resource():
     if os.getenv('IS_OFFLINE', False):
         boto3.Session(
-            aws_access_key_id = 'MockAccessKeyId',
-            aws_secret_access_key = 'MockSecretAccessKey'
+            aws_access_key_id='MockAccessKeyId',
+            aws_secret_access_key='MockSecretAccessKey'
         )
-        return boto3.resource('dynamodb', endpoint_url = 'http://localhost:8000')
+        return boto3.resource('dynamodb', endpoint_url='http://localhost:8000')
     else:
         return boto3.resource('dynamodb')
+
 
 def delete_user(event, context):
     client = get_dynamodb_resource()
@@ -19,7 +21,7 @@ def delete_user(event, context):
 
     try:
         user_id = event['pathParameters']['id']
-        result = table.delete_item(Key = {'pk': user_id})
+        result = table.delete_item(Key={'pk': user_id})
     except (BotoCoreError, ClientError) as e:
         # Return error message in case of exceptions
         return {
